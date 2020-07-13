@@ -17,7 +17,7 @@ function MaterialFiledRole(
     return (
         <div className="input-field col s12">
             <Field as="select" className={classes} name={name} style={{display: 'block'}}>
-                <option value="" disabled selected>Choose your Role!</option>
+                <option value="" disabled defaultValue="">Choose your Role!</option>
                 <option value="0">Parent</option>
                 <option value="1">BabySitter</option>
             </Field>

@@ -40,7 +40,7 @@ router.post('/', verifyToken,  function (req, res, next) {
     indicative.validator.validate(newPost, {
         _id: 'regex:^[0-9a-fA-F]{24}$',
         // author: 'required|string|min:3|max:30',
-        text: 'string|min:3|max:1024',
+        text: 'string|max:512',
         // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
         date: 'required',
         timeFrom: 'required',
@@ -75,7 +75,7 @@ router.put('/:id', async function (req, res, next) {
         await indicative.validator.validate(post, {
             _id: 'required|regex:^[0-9a-fA-F]{24}$',
             // author: 'required|string|min:3|max:30',
-            text: 'string|min:3|max:1024',
+            text: 'string|max:1024',
             // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
             date: 'required',
             timeFrom: 'required',

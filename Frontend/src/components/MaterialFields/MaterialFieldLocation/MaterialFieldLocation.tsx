@@ -17,7 +17,7 @@ function MaterialFiledLocation(
     return (
         <div className="input-field col s12">
             <Field as="select" className={classes} name={name} style={{display: 'block'}}>
-                <option value="" disabled selected>Choose your city of residence!</option>
+                <option value="" disabled defaultValue="">Choose your city of residence!</option>
                 <option value="Sofia">Sofia</option>
                 <option value="Plovdiv">Plovdiv</option>
                 <option value="Varna">Varna</option>

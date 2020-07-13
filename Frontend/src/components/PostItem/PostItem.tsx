@@ -33,7 +33,7 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
   }
  
   return (
-    <div className="PostItem-card-wrapper col l4 Post-card">
+    <div className="PostItem-card-wrapper col s12 m6 l6 xl4 Post-card">
       <div className="card">
         <div className="PostItem-card-image waves-effect waves-block waves-light">
           <img
@@ -45,7 +45,7 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
         <div className="PostItem-card-content">
           <div className="card-title activator grey-text text-darken-4">
             <div className="PostItem-title">
-              {post.author}
+              <strong>{post.author}</strong>
             </div>
             <div className="PostItem-tags">
               {post.kidsNames?.map((name, index) => (
@@ -57,18 +57,20 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
             </div>
             <i className="material-icons right">more_vert</i>
           </div>
+          <hr className="style-two"/>
           {/* <p dangerouslySetInnerHTML={rawMarkup(post.text)}></p> */}
-          <div className="red-text text-lighter-1">On: {post.date}, From: {post.timeFrom} To: {post.timeTo}</div>
-          <div className="red-text text-lighter-1">Location: {post.location}</div>
+          <div className="h-align-items black-text text-lighter-1"><i className="margin-right-small material-icons small">home</i> {post.location}</div>
+          <div className="h-align-items black-text text-lighter-1"><i className="margin-right-small material-icons small">date_range</i> {post.date} <i className="margin-left-small material-icons small">access_time</i> {post.timeFrom} - {post.timeTo}</div>
+    
           <div className="PostItem-card-actions card-action">
             {post.isAccepted && user?._id === post.authorId? <button className="btn waves-effect waves-light green lighten-2 pulse" onClick={handleDelete}>Complete</button>: null}
-            {post.isAccepted? <span>ACCEPTED</span> : null}
+              {post.isAccepted? <span className="h-align-items "><i className="material-icons margin-right-small">check_circle</i> {post.acceptedBy}</span> : null}
             {user?.roles === '0' || post.isAccepted? null : <button className="btn waves-effect waves-light pink lighten-2 pulse" onClick={handleAccept}>Accept offer!</button>}
             <div className="PostItem-buttons-right">
-              {user?._id === post.authorId?<button className="btn waves-effect waves-light" title="EDIT Post" onClick={handleEdit}>
+              {user?._id === post.authorId && post.isAccepted === false?<button className="btn waves-effect waves-light" title="EDIT Post" onClick={handleEdit}>
                 <i className="material-icons">create</i>
               </button>: null}
-              {user?._id === post.authorId?<button className="btn danger waves-effect waves-light" title="DELETE Post" onClick={handleDelete}>
+              {user?._id === post.authorId && post.isAccepted === false?<button className="btn danger waves-effect waves-light" title="DELETE Post" onClick={handleDelete}>
                 <i className="material-icons">delete</i>
               </button>: null}
             </div>

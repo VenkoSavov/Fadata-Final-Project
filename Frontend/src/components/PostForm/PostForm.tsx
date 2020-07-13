@@ -160,5 +160,4 @@ export const PostForm: FC<Props> = () => {
                         <DisplayFormikState />
                     </Form>
                 )
-            
                             }

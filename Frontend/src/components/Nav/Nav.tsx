@@ -69,12 +69,14 @@ export default function Nav({
                   </NavLink>
                 </li>
               ) : null}
+              {user?.roles !== '0'?
               <li>
                 <NavLink to="/posts" activeClassName="active">
                   Posts
                 </NavLink>
               </li>
-              {user === undefined ? null : (
+                  : null}
+              {user === undefined || user.roles === "1"? null : (
               <li>
                 
                 <NavLink to="/add-post" activeClassName="active">
@@ -108,18 +110,54 @@ export default function Nav({
       </div>
 
       <ul className="sidenav" id="mobile-demo">
-        <li>
-          <a href="sass.html">Sass</a>
-        </li>
-        <li>
-          <a href="badges.html">Components</a>
-        </li>
-        <li>
-          <a href="collapsible.html">Javascript</a>
-        </li>
-        <li>
-          <a href="mobile.html">Mobile</a>
-        </li>
+        {user !== undefined? <li><strong>Hello, {user.firstName}</strong></li>: null}
+            {user?.roles === '0' ? 
+                <li>
+                  <NavLink to="/profileP"   activeClassName="active">
+                    My Profile
+                  </NavLink>
+                </li>
+               : null}
+               {user?.roles === '1'? 
+              <li>
+              <NavLink to="/profileS"   activeClassName="active">
+                My Profile
+              </NavLink>
+            </li>: null}
+              {user !== undefined ? (
+                <li>
+                  <NavLink to="/posts"  onClick={handleLogout} activeClassName="active">
+                    Logout
+                  </NavLink>
+                </li>
+              ) : null}
+              {user === undefined ? (
+                <li>
+                  <NavLink to="/login" activeClassName="active">
+                    Login
+                  </NavLink>
+                </li>
+              ) : null}
+              {user === undefined ? (
+                <li>
+                  <NavLink to="/register" activeClassName="active">
+                    Register
+                  </NavLink>
+                </li>
+              ) : null}
+              <li>
+                <NavLink to="/posts" activeClassName="active">
+                  Posts
+                </NavLink>
+              </li>
+              {user === undefined ? null : (
+              <li>
+                
+                <NavLink to="/add-post" activeClassName="active">
+                  Add Post
+                </NavLink>
+              </li>
+                 )}
       </ul>
     </React.Fragment>
   );

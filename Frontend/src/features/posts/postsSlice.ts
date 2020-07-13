@@ -6,6 +6,7 @@ import { Post } from '../../model/post.model';
 import PostService from '../../service/post-service';
 import { getErrorMessage } from '../../service/service-utils';
 import { IdType } from '../../shared/shared-types';
+import { useState } from 'react';
 
 interface PostsState {
   currentPostId: IdType | null;
@@ -198,12 +199,17 @@ export const updatePost = (
   post: Post, 
   history: History<History.PoorMansUnknown>, 
   // setSubmitting: (isSubmitting: boolean) => void
-  ): AppThunk => async (dispatch) => {
+  ): AppThunk => async (dispatch, getState) => {
   try {
     dispatch(updatePostStart(post));
     const created = await PostService.updatePost(post);
     dispatch(updatePostSuccess(created));
-    history.push('/posts');
+    const user = getState().auth.loggedUser
+    if(user?.roles === '0'){
+    history.push('/profileP');
+    } else {
+      history.push('/');
+    }
   } catch (err) {
     dispatch(postsFailure(getErrorMessage(err)))
   } 

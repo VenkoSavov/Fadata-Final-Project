@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchPostById, updatePost, createPost, acceptPost } from '../../features/posts/postsSlice';
 import { User } from '../../model/user.model';
 
+
 interface Props {
 }
 
@@ -27,6 +28,7 @@ export interface MyFormValues {
     timeTo: string;
     kidsNames: string;
     kidsAge: string;
+    location: string;
     isAccepted: boolean;
     acceptedBy: string | undefined;
     imageUrl?: string;
@@ -59,6 +61,7 @@ export const AcceptForm: FC<Props> = () => {
         imageUrl: post?.imageUrl || '',
         kidsNames: post?.kidsNames?.join(', ') || '',
         kidsAge: post?.kidsAge.join(', ') || '',
+        location: post?.location || '',
         isAccepted: true,
         acceptedBy: user?.username
     };
@@ -89,6 +92,7 @@ export const AcceptForm: FC<Props> = () => {
                         timeTo: values.timeTo,
                         kidsNames: values.kidsNames?.trim().split(/[\s,;]+/).filter(kn => kn.length > 0),
                         kidsAge: values.kidsAge?.trim().split(/[\s,;]+/).filter(ka => ka.length > 0),
+                        location: values.location,
                         isAccepted: values.isAccepted,
                         acceptedBy: values.acceptedBy,
                         imageUrl: values.imageUrl

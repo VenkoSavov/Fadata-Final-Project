@@ -27,6 +27,11 @@ export default function Login(): ReactElement {
             <input type="password" id="password" placeholder="Password" name="password" required  ref={passwordRef}/>
 
             <button type="submit">Login</button>
+            <button type="button" onClick={goBack} className="btn red waves-effect waves-light" >Cancel <i className="material-icons right">settings_backup_restore</i></button>
         </form>
     )
+    function goBack(event: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+      event.preventDefault();
+      history.push("/");
+  }
 }

@@ -87,9 +87,13 @@ export const submitLogin = (credentials: Credentials, history: History<History.P
     dispatch(loginStart())
     const loggedUser = await AuthService.login(credentials);
     dispatch(loginSuccess(loggedUser));
-    const requestedUrl = getState().auth.requestedUrl;
+    const user = getState().auth.loggedUser
     // replace in history the Login with requested protected page ang go to it OR go to / if no requested page
-    history.replace(requestedUrl? requestedUrl: '/'); 
+    if(user?.roles === '0'){
+      history.push('/profileP');
+    } else {
+      history.push('/');
+    }
   } catch (err) {
     dispatch(loginFailure(getErrorMessage(err)))
   }
