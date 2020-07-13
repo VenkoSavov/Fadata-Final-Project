@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
 import React, { FC, useEffect, useState, ReactElement } from 'react';
 import { Formik, Form, FormikProps } from 'formik';
-import MaterialFiled from '../MaterialField/MaterialField';
+import MaterialFiled from '../MaterialFields/MaterialField/MaterialField';
 import './AcceptForm.css';
 import { useParams, useHistory } from 'react-router-dom';
 import PostService from '../../service/post-service';

@@ -3,6 +3,8 @@ import { Post } from '../../model/post.model';
 import './PostItem.css';
 import { PostCallback } from '../../shared/shared-types';
 import { Marked } from '@ts-stack/markdown';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/rootReducer';
 
 interface Props {
   post: Post;
@@ -17,6 +19,7 @@ const rawMarkup = (markdownText: string) => (
 );
 
 export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcceptPost}) => {
+  let user = useSelector((state: RootState) => state.auth.loggedUser);
 
   const handleAccept = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     onAcceptPost(post);
@@ -56,15 +59,18 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
           </div>
           {/* <p dangerouslySetInnerHTML={rawMarkup(post.text)}></p> */}
           <div className="red-text text-lighter-1">On: {post.date}, From: {post.timeFrom} To: {post.timeTo}</div>
+          <div className="red-text text-lighter-1">Location: {post.location}</div>
           <div className="PostItem-card-actions card-action">
-            {post.isAccepted? <span>ACCEPTED</span> : <button className="btn waves-effect waves-light pink lighten-2 pulse" onClick={handleAccept}>Accept offer!</button>}
+            {post.isAccepted && user?._id === post.authorId? <button className="btn waves-effect waves-light green lighten-2 pulse" onClick={handleDelete}>Complete</button>: null}
+            {post.isAccepted? <span>ACCEPTED</span> : null}
+            {user?.roles === '0' || post.isAccepted? null : <button className="btn waves-effect waves-light pink lighten-2 pulse" onClick={handleAccept}>Accept offer!</button>}
             <div className="PostItem-buttons-right">
-              <button className="btn waves-effect waves-light" title="EDIT Post" onClick={handleEdit}>
+              {user?._id === post.authorId?<button className="btn waves-effect waves-light" title="EDIT Post" onClick={handleEdit}>
                 <i className="material-icons">create</i>
-              </button>
-              <button className="btn danger waves-effect waves-light" title="DELETE Post" onClick={handleDelete}>
+              </button>: null}
+              {user?._id === post.authorId?<button className="btn danger waves-effect waves-light" title="DELETE Post" onClick={handleDelete}>
                 <i className="material-icons">delete</i>
-              </button>
+              </button>: null}
             </div>
           </div>
         </div>

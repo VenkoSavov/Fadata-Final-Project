@@ -70,7 +70,11 @@ function App() {
   };
 
   const handleAcceptPost: PostCallback = (post) => {
-    history.push(`/accept-post/${post._id}`);
+    if(loggedUser){
+    history.push(`/accept-post/${post._id}`)
+  } else{
+    history.push(`/login`);
+  }
   };
 
   const handleSearch: StringCallback = () =>{

@@ -5,9 +5,10 @@ import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
 import React, { FC, useEffect, useState, ReactElement } from 'react';
 import { Formik, Form, FormikProps } from 'formik';
-import MaterialFiled from '../MaterialField/MaterialField';
-import MaterialFiledDate from '../MaterialFieldDate/MaterialFieldDate';
-import MaterialFiledTime from '../MaterialFieldTime/MaterialFieldTime';
+import MaterialFiled from '../MaterialFields/MaterialField/MaterialField';
+import MaterialFiledDate from '../MaterialFields/MaterialFieldDate/MaterialFieldDate';
+import MaterialFiledTime from '../MaterialFields/MaterialFieldTime/MaterialFieldTime';
+import MaterialFiledLocation from '../MaterialFields/MaterialFieldLocation/MaterialFieldLocation';
 import './PostForm.css';
 import { useParams, useHistory } from 'react-router-dom';
 import PostService from '../../service/post-service';
@@ -32,6 +33,7 @@ export interface MyFormValues {
     kidsNames: string;
     kidsAge: string;
     date: string;
+    location: string;
     isAccepted: boolean;
     acceptedBy: User | undefined;
     imageUrl?: string;
@@ -64,6 +66,7 @@ export const PostForm: FC<Props> = () => {
         kidsNames: post?.kidsNames?.join(', ') || '',
         kidsAge: post?.kidsAge.join(', ') || '',
         date: post?.date || '',
+        location: post?.location || '',
         isAccepted: false,
         acceptedBy: undefined
     };
@@ -94,6 +97,7 @@ export const PostForm: FC<Props> = () => {
                         kidsNames: values.kidsNames?.trim().split(/[\s,;]+/).filter(kn => kn.length > 0),
                         kidsAge: values.kidsAge?.trim().split(/[\s,;]+/).filter(ka => ka.length > 0),
                         date: values.date,
+                        location: values.location,
                         isAccepted: values.isAccepted,
                         acceptedBy: values.acceptedBy,
                         imageUrl: values.imageUrl
@@ -114,6 +118,7 @@ export const PostForm: FC<Props> = () => {
                 kidsAge: Yup.number().required(),
                 kidsNames: Yup.string().required().trim().matches(/^([\w-_+]+)([,\s]+([\w-_+]+))*$/, 'KidsNames must be a comma/space separated list of words. Words should contain only letters, digits, "_", "+" and "-" characters.'),
                 date: Yup.string().required(),
+                location: Yup.string().required(),
             })}
         >
             {(props) => <PostFormInternal {...props} />}
@@ -141,6 +146,7 @@ export const PostForm: FC<Props> = () => {
                             <MaterialFiledDate name='date'  label='Date' />
                             <MaterialFiledTime name='timeFrom' label='From' />
                             <MaterialFiledTime name='timeTo' label='To' />
+                            <MaterialFiledLocation name='location'/>
                         </div>
                         <div className="PostForm-butons row">
                             <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting || 

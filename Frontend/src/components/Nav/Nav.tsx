@@ -74,13 +74,14 @@ export default function Nav({
                   Posts
                 </NavLink>
               </li>
-              
+              {user === undefined ? null : (
               <li>
+                
                 <NavLink to="/add-post" activeClassName="active">
                   Add Post
                 </NavLink>
               </li>
-                 
+                 )}
               <li>
                 <form>
                   <div className="input-field">
