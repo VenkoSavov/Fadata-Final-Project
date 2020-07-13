@@ -4,13 +4,14 @@ export interface IPost extends Indentifiable {
     author: string;
     text: string;
     authorId: IdType;
-    date: string;
     timeFrom: string;
     timeTo: string;
     kidsNames: string[];
     kidsAge: string[];
+    date: string;
     isAccepted: boolean;
     acceptedBy: User | undefined;
+    location: string;
     imageUrl?: string;
 }
 
@@ -21,13 +22,14 @@ export class Post implements IPost {
         public author: string,
         public text: string,
         public authorId: IdType,
-        public date: string,
         public timeFrom: string,
         public timeTo: string,
         public kidsNames: string[],
         public kidsAge: string[] = [],
+        public date: string,
         public isAccepted: boolean,
         public acceptedBy: User | undefined,
+        public location: string,
         public imageUrl?: string
         ) {}
 } 

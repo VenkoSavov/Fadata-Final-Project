@@ -5,3 +5,11 @@
 .PostForm-butons .btn {
     margin-right: 10px;
 }
+
+.formContainer{
+    max-width: 600px;
+    margin: auto;
+    padding: 50px;
+    border: aquamarine solid 1px;
+    
+}
