@@ -60,7 +60,7 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
           <hr className="style-two"/>
           {/* <p dangerouslySetInnerHTML={rawMarkup(post.text)}></p> */}
           <div className="h-align-items black-text text-lighter-1"><i className="margin-right-small material-icons small">home</i> {post.location}</div>
-          <div className="h-align-items black-text text-lighter-1"><i className="margin-right-small material-icons small">date_range</i> {post.date} <i className="margin-left-small material-icons small">access_time</i> {post.timeFrom} - {post.timeTo}</div>
+          <div className="h-align-items black-text text-lighter-1"><i className="margin-right-small material-icons small">date_range</i> {post.date} <i className="margin-right-small margin-left-small material-icons small">access_time</i> {post.timeFrom} - {post.timeTo}</div>
     
           <div className="PostItem-card-actions card-action">
             {post.isAccepted && user?._id === post.authorId? <button className="btn waves-effect waves-light green lighten-2 pulse" onClick={handleDelete}>Complete</button>: null}

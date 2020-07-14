@@ -12,7 +12,7 @@ import { PostForm } from '../components/PostForm/PostForm';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, deletePost, acceptPost } from '../features/posts/postsSlice';
+import { fetchPosts, deletePost, acceptPost, filterByValue, filterChange } from '../features/posts/postsSlice';
 import { RootState } from './rootReducer';
 import { RegisterForm } from '../components/RegisterForm/RegisterForm';
 import Login from '../components/Login/Login';
@@ -22,6 +22,7 @@ import { LoggedUser } from '../model/auth';
 import { logout } from '../features/auth/authSlice';
 import { ParentList } from '../components/ParentList/ParentList';
 import { BabySitterList } from '../components/BabySitterList/BabySitterList';
+import ChooseFilter from '../components/ChooseFilter/ChooseFilter';
 
 // import MOCK_POSTS from './model/mock-posts';
 export interface PostAction {
@@ -52,6 +53,7 @@ function App() {
 
  
  const posts = useSelector((state: RootState) => state.posts.posts);
+ let filter = useSelector((state: RootState) => state.posts.filter);
  const errors = useSelector((state:RootState) => {
    return state.posts.error;
  })
@@ -77,9 +79,13 @@ function App() {
   }
   };
 
-  const handleSearch: StringCallback = () =>{
-    // needs doing
+  const handleSearch: StringCallback = (searchText) =>{
+    dispatch(filterByValue(searchText))
   };
+
+  const handleFilterChange = (filter: string) => {
+    dispatch(filterChange(filter));
+  }
 
   const handleLogout: UserCallback = (user: User | undefined) => {
     // dispatch(logout(user, history))
@@ -92,7 +98,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <Nav onSearchPosts={handleSearch} onLogout={handleLogout} />
+      <Nav onSearchPosts={handleSearch}  onLogout={handleLogout} />
       <div className="section no-pad-bot" id="index-banner">
         <div className="container" >
           <Switch>
@@ -106,12 +112,15 @@ function App() {
               <BabySitterList  posts={posts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} onAcceptPost={handleAcceptPost} />
             </Route>
             <Route exact path="/posts">
-              <PostList posts={posts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} onAcceptPost={handleAcceptPost}/>
+            <Header />
+            <ChooseFilter filter={filter} onFilterChange={handleFilterChange}/>
+              <PostList posts={posts} onEditPost={handleEditPost} filter={filter} onDeletePost={handleDeletePost} onAcceptPost={handleAcceptPost}/>
             </Route>
             <Route exact path="/add-post">
               <PostForm />
             </Route>
             <Route exact path="/register">
+              <div className="center"><h2>Register</h2></div>
               <RegisterForm />
             </Route>
             <Route exact path="/login">

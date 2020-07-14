@@ -14,6 +14,7 @@ interface PostsState {
   loading: boolean;
   error: string | null;
   message: string | null;
+  filter: string | undefined;
 }
 
 interface PostsLoaded {
@@ -25,7 +26,8 @@ const initialState: PostsState = {
   posts: [],
   loading: false,
   error: null,
-  message:null
+  message:null,
+  filter: undefined
 }
 
 const posts = createSlice({
@@ -128,7 +130,24 @@ const posts = createSlice({
       }
       state.loading = false;
       state.error = null;
-    }
+    },
+    filterByValueStart(state) {
+      state.loading = true
+      state.error = null
+    },
+    filterByValueSuccess(state, action: PayloadAction<string>) {
+      let value = action.payload;
+      let filteredValues = state.posts.filter(post => post.location.toLowerCase().includes(value));
+      return {...state,value, filteredValues};
+    }, 
+    filterChangeStart(state) {
+      state.loading = true
+      state.error = null
+    },
+    filterChangeSuccess(state, action: PayloadAction<string>) {
+      state.filter = action.payload;
+      
+    }, 
   }
 })
 
@@ -146,7 +165,11 @@ export const {
   deletePostByIdStart,
   deletePostByIdSuccess,
   acceptPostStart,
-  acceptPostSuccess
+  acceptPostSuccess,
+  filterByValueStart,
+  filterByValueSuccess,
+  filterChangeStart,
+  filterChangeSuccess
 } = posts.actions
 export default posts.reducer
 
@@ -186,7 +209,7 @@ export const createPost = (
     const authToken = getState().auth.token;
     const created = await PostService.createNewPost(post, authToken);
     dispatch(createPostSuccess(created));
-    history.push('/posts');
+    history.push('/profileP');
   } catch (err) {
     dispatch(postsFailure(getErrorMessage(err)))
   } 
@@ -232,7 +255,7 @@ export const acceptPost = (
   post: Post, 
   history: History<History.PoorMansUnknown>,
   // setSubmitting: (isSubmitting: boolean) => void
-  ): AppThunk => async (dispatch, getState) => {
+  ): AppThunk => async (dispatch) => {
   try {
     dispatch(acceptPostStart(post));
     // const acceptedBy = getState().auth.loggedUser;
@@ -245,3 +268,27 @@ export const acceptPost = (
     dispatch(postsFailure(getErrorMessage(err)))
   } 
 }
+
+export const filterByValue = ( 
+  searchText: string
+  // setSubmitting: (isSubmitting: boolean) => void
+  ): AppThunk => async (dispatch) => {
+    try {
+      dispatch(filterByValueStart());
+      dispatch(filterByValueSuccess(searchText))
+    } catch (err) {
+      dispatch(postsFailure(getErrorMessage(err)))
+    }
+  }
+
+  export const filterChange = ( 
+    searchText: string
+    // setSubmitting: (isSubmitting: boolean) => void
+    ): AppThunk => async (dispatch) => {
+      try {
+        dispatch(filterChangeStart());
+        dispatch(filterChangeSuccess(searchText))
+      } catch (err) {
+        dispatch(postsFailure(getErrorMessage(err)))
+      }
+    }

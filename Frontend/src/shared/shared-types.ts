@@ -18,3 +18,7 @@ export interface PostCallback {
 export interface UserCallback {
     (user: User | undefined): void;
 }
+
+export interface FilterChangeListener {
+    (filter: string ): void;
+  }

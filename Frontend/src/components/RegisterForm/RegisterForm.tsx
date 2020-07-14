@@ -113,14 +113,14 @@ const PostFormInternal: (props: FormikProps<MyFormValues>) => ReactElement = ({
   }, [loading, setSubmitting]);
   return (
     <Form className="col s12">
-      <div className="formContainer">
+      <div className="formContainer section">
         <div className="row">
-          <MaterialFiled name="firstName" label="First Name" />
-          <MaterialFiled name="lastName" label="Last Name" />
-          <MaterialFiled name="username" label="Username" />
-          <MaterialFiled name="email" label="Email" />
-          <MaterialFiledPass name="password" label="Password" />
-          <MaterialFiledPass name="passwordConfirm" label="Reapeat password" />
+          <MaterialFiled name="firstName" label="First Name*" />
+          <MaterialFiled name="lastName" label="Last Name*" />
+          <MaterialFiled name="username" label="Username*" />
+          <MaterialFiled name="email" label="Email*" />
+          <MaterialFiledPass name="password" label="Password*" />
+          <MaterialFiledPass name="passwordConfirm" label="Reapeat password*" />
           <MaterialFiled name="imageUrl" label="Image Url" />
           <MaterialFiledRole name="roles" />
         </div>
