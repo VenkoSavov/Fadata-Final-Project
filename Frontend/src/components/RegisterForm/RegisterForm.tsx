@@ -10,7 +10,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { RootState } from "../../app/rootReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { User } from "../../model/user.model";
-import { createUser } from "../../features/users/usersSlice";
+import { createUser, updateUser, fetchUserById } from "../../features/users/usersSlice";
 
 interface Props {}
 
@@ -38,7 +38,7 @@ export const RegisterForm: FC<Props> = () => {
       if (index >= 0) {
         return state.users.users[index];
       }
-    }
+    } 
     return undefined;
   });
   const initialValues: MyFormValues = {
@@ -56,6 +56,12 @@ export const RegisterForm: FC<Props> = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  useEffect(() => {
+    if (params.userId) {
+        dispatch(fetchUserById(params.userId));
+    }
+}, [params.userId, dispatch]);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -70,9 +76,13 @@ export const RegisterForm: FC<Props> = () => {
           imageUrl: values.imageUrl,
           roles: values.roles,
         } as User;
-
-        // Create
-        dispatch(createUser(result, history));
+        if(result._id) { // Edit
+          dispatch(updateUser(result, history));
+      } else { // Create
+          dispatch(createUser(result, history));
+      }
+        // // Create
+        // dispatch(createUser(result, history));
       }}
       validateOnChange
       validationSchema={Yup.object().shape({

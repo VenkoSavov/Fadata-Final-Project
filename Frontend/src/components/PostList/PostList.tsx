@@ -19,7 +19,7 @@ export function PostList({ posts,filter, ...rest }: Props): ReactElement<Props> 
     <React.Fragment>
       <div className="row">
         {posts.filter(post => !filter ? true: post.location === filter).map(post => (<PostItem post={post} key={post._id} {...rest} />))}
-        {/* {posts.filter(post => post.isAccepted !== true).map(post => (<PostItem post={post} key={post._id} {...rest} />))} */}
+        {/* {posts.filter(post => post.isAccepted !== true).filter(post => !filter ? true: post.location === filter).map(post => (<PostItem post={post} key={post._id} {...rest} />))} */}
       </div>
     </React.Fragment>
   );

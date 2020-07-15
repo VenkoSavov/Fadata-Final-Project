@@ -60,6 +60,13 @@ export default function Nav({
                   <strong>Hello, {user.firstName}</strong>
                 </li>
               ) : null}
+              {user?.roles === "2" ? (
+                <li>
+                  <NavLink to="/users" activeClassName="active">
+                    Manage Users
+                  </NavLink>
+                </li>
+              ) : null}
               {user?.roles === "0" ? (
                 <li>
                   <NavLink to="/profileP" activeClassName="active">

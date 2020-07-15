@@ -19,6 +19,10 @@ export interface UserCallback {
     (user: User | undefined): void;
 }
 
+export interface CallbackUser {
+    (user: User): void;
+}
+
 export interface FilterChangeListener {
     (filter: string ): void;
   }

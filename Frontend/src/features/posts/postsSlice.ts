@@ -281,7 +281,7 @@ export const acceptPost = (
   history: History<History.PoorMansUnknown>,
   // setSubmitting: (isSubmitting: boolean) => void
   ): AppThunk => async (dispatch) => {
-  try {
+  try { 
     dispatch(acceptPostStart(post));
     // const acceptedBy = getState().auth.loggedUser;
     console.log(JSON.stringify(post));

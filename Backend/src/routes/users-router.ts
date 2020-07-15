@@ -44,7 +44,7 @@ router.post('/', async (req, res, next) => {
             lastName:'required|string|min:2|max:20',
             username:'required|string|min:2|max:20',
             email:'required|email',
-            password:'required.min(6).max(30)',
+            password:'required|min:6|max:30',
             roles:'required',
             
         });

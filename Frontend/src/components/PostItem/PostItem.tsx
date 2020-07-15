@@ -77,6 +77,9 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
               {user?._id === post.authorId && post.isAccepted === false?<button className="btn danger waves-effect waves-light" title="DELETE Post" onClick={handleDelete}>
                 <i className="material-icons">delete</i>
               </button>: null}
+              {user?.roles === '2'?<button className="btn danger waves-effect waves-light" title="DELETE Post" onClick={handleDelete}>
+                <i className="material-icons">delete</i>
+              </button>: null}
             </div>
           </div>
         </div>

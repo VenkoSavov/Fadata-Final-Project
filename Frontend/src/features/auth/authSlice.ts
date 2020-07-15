@@ -91,6 +91,8 @@ export const submitLogin = (credentials: Credentials, history: History<History.P
     // replace in history the Login with requested protected page ang go to it OR go to / if no requested page
     if(user?.roles === '0'){
       history.push('/profileP');
+    }else if(user?.roles === '2'){
+      history.push('/users')
     } else {
       history.push('/');
     }

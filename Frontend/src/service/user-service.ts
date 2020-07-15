@@ -1,20 +1,21 @@
 import { handleErrorStausCodes } from './service-utils';
 import { User } from '../model/user.model';
+import { IdType } from '../shared/shared-types';
 
 export const API_BASE = 'http://localhost:9000/api';
 
 class UserService {
     constructor(private apiUrl: string) {}
 
-    // async getAllPosts() {
-    //     const resp = await fetch(`${this.apiUrl}/posts`);
-    //     return handleErrorStausCodes<Post[]>(resp);
-    // }
+    async getAllUsers() {
+        const resp = await fetch(`${this.apiUrl}/users`);
+        return handleErrorStausCodes<User[]>(resp);
+    }
 
-    // async getPostById(postId: IdType) {
-    //     const resp = await fetch(`${this.apiUrl}/posts/${postId}`);
-    //     return handleErrorStausCodes<Post>(resp);
-    // }
+    async getUserById(userId: IdType) {
+        const resp = await fetch(`${this.apiUrl}/users/${userId}`);
+        return handleErrorStausCodes<User>(resp);
+    }
 
     async createNewUser(user: User, authToken: string | undefined) {
         const resp = await fetch(`${this.apiUrl}/users`, {
@@ -29,23 +30,23 @@ class UserService {
         return handleErrorStausCodes<User>(resp);
     }
 
-    // async updatePost(post: Post) {
-    //     const resp = await fetch(`${this.apiUrl}/posts/${post._id}`, {
-    //         method: 'PUT',
-    //         mode: 'cors',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify(post),
-    //     });
-    //     return handleErrorStausCodes<Post>(resp);
-    // }
+    async updateUser(user: User) {
+        const resp = await fetch(`${this.apiUrl}/users/${user._id}`, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(user),
+        });
+        return handleErrorStausCodes<User>(resp);
+    }
 
-    // async deletePost(postId: IdType) {
-    //     const resp = await fetch(`${this.apiUrl}/posts/${postId}`, {
-    //         method: 'DELETE',
-    //         mode: 'cors'
-    //     });
-    //     return handleErrorStausCodes<Post>(resp);
-    // }
+    async deleteUser(userId: IdType) {
+        const resp = await fetch(`${this.apiUrl}/users/${userId}`, {
+            method: 'DELETE',
+            mode: 'cors'
+        });
+        return handleErrorStausCodes<User>(resp);
+    }
 
 }
 

@@ -17,7 +17,7 @@ import { User } from '../../model/user.model';
 import { IdType } from '../../shared/shared-types';
 
 interface Props {
-}
+} 
 
 export interface MyFormValues {
     _id: string;

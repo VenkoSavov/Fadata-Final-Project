@@ -16,7 +16,7 @@ interface UsersState {
 }
 
 interface UsersLoaded {
-  posts: User[];
+  users: User[];
 }
 
 const initialState: UsersState = {
@@ -31,40 +31,40 @@ const users = createSlice({
   name: 'users',
   initialState, 
   reducers: {
-    // getPostsStart(state) {
-    //   state.loading = true
-    //   state.error = null
-    // },
-    // getPostsSuccess(state, action: PayloadAction<PostsLoaded>) {
-    //   const { posts } = action.payload;
-    //   state.posts = posts;
-    //   state.loading = false;
-    //   state.error = null;
-    // }, 
+    getUsersStart(state) {
+      state.loading = true
+      state.error = null
+    },
+    getUsersSuccess(state, action: PayloadAction<UsersLoaded>) {
+      const { users } = action.payload;
+      state.users = users;
+      state.loading = false;
+      state.error = null;
+    }, 
      usersFailure(state, action: PayloadAction<string>) {
        state.loading = false;
        state.error = action.payload;
        state.message = null;
     },
-    // selectPostById(state, action: PayloadAction<IdType>) {
-    //   state.currentPostId = action.payload;
-    // },
-    // getPostByIdStart(state, action: PayloadAction<IdType>) {
-    //   state.currentPostId = action.payload;
-    //   state.loading = true;
-    //   state.error = null;
-    // },
-    // getPostByIdSuccess(state, action: PayloadAction<Post>) {
-    //   const post = action.payload;
-    //   const index = state.posts.findIndex(p => p._id === post._id);
-    //   if (index < 0) {
-    //     state.posts.push(post)
-    //   } else {
-    //     state.posts[index] = post;
-    //   }
-    //   state.loading = false;
-    //   state.error = null;
-    // },
+    selectUserById(state, action: PayloadAction<IdType>) {
+      state.currentUserId = action.payload;
+    },
+    getUserByIdStart(state, action: PayloadAction<IdType>) {
+      state.currentUserId = action.payload;
+      state.loading = true;
+      state.error = null;
+    },
+    getUserByIdSuccess(state, action: PayloadAction<User>) {
+      const user = action.payload;
+      const index = state.users.findIndex(p => p._id === user._id);
+      if (index < 0) {
+        state.users.push(user)
+      } else {
+        state.users[index] = user;
+      }
+      state.loading = false;
+      state.error = null;
+    }, 
     createUserStart(state, action: PayloadAction<User>) {
       state.currentUserId = action.payload._id;
       state.loading = true;
@@ -77,82 +77,82 @@ const users = createSlice({
       state.error = null;
       state.message = `User "${action.payload.username}" created successfully.`;
      },
-    // updatePostStart(state, action: PayloadAction<Post>) {
-    //   state.currentPostId = action.payload._id;
-    //   state.loading = true;
-    //   state.error = null;
-    // },
-    // updatePostSuccess(state, action: PayloadAction<Post>) {
-    //   const post = action.payload;
-    //   const index = state.posts.findIndex(p => p._id === post._id);
-    //   if (index < 0) {
-    //     state.posts.push(post)
-    //   } else {
-    //     state.posts[index] = post;
-    //   }
-    //   state.loading = false;
-    //   state.error = null;
-    //   state.message = `Post "${action.payload.author}" updated successfully.`;
-    // },
-    // deletePostByIdStart(state, action: PayloadAction<IdType>) {
-    //   state.currentPostId = action.payload;
-    //   state.loading = true;
-    //   state.error = null;
-    // },
-    // deletePostByIdSuccess(state, action: PayloadAction<Post>) {
-    //   const post = action.payload;
-    //   const index = state.posts.findIndex(p => p._id === post._id);
-    //   if (index >= 0) {
-    //     state.posts.splice(index, 1);
-    //   }
-    //   state.loading = false;
-    //   state.error = null;
-    //   state.message = `Post "${action.payload.author}" deleted successfully.`;
-    // },
+    updateUserStart(state, action: PayloadAction<User>) {
+      state.currentUserId = action.payload._id;
+      state.loading = true;
+      state.error = null;
+    },
+    updateUserSuccess(state, action: PayloadAction<User>) {
+      const user = action.payload;
+      const index = state.users.findIndex(p => p._id === user._id);
+      if (index < 0) {
+        state.users.push(user)
+      } else {
+        state.users[index] = user;
+      }
+      state.loading = false;
+      state.error = null;
+      state.message = `User ${action.payload.username} updated successfully.`;
+    },
+    deleteUserByIdStart(state, action: PayloadAction<IdType>) {
+      state.currentUserId = action.payload;
+      state.loading = true;
+      state.error = null;
+    },
+    deleteUserByIdSuccess(state, action: PayloadAction<User>) {
+      const user = action.payload;
+      const index = state.users.findIndex(p => p._id === user._id);
+      if (index >= 0) {
+        state.users.splice(index, 1);
+      }
+      state.loading = false;
+      state.error = null;
+      state.message = `User ${action.payload.username} deleted successfully.`;
+    },
   }
 })
 
 export const {
-//   getPostsStart,
-//   getPostsSuccess,
+  getUsersStart,
+  getUsersSuccess,
   usersFailure,
-//   selectPostById,
-//   getPostByIdStart,
-//   getPostByIdSuccess,
+  selectUserById,
+  getUserByIdStart,
+  getUserByIdSuccess,
   createUserStart,
   createUserSuccess,
-//   updatePostStart,
-//   updatePostSuccess,
-//   deletePostByIdStart,
-//   deletePostByIdSuccess,
+  updateUserStart,
+  updateUserSuccess,
+  deleteUserByIdStart,
+  deleteUserByIdSuccess,
 } = users.actions
 export default users.reducer
 
-// export const fetchPosts = (): AppThunk => async (dispatch) => {
-//   try {
-//     dispatch(getPostsStart())
-//     const localPosts = localStorage.getItem('posts');
-//     if (localPosts) {
-//       console.log(localPosts);
-//       dispatch(getPostsSuccess({ posts: JSON.parse(localPosts) as Post[] }));
-//     }
-//     const posts = await PostService.getAllPosts()
-//     dispatch(getPostsSuccess({ posts }))
-//     localStorage.setItem('posts', JSON.stringify(posts));
-//   } catch (err) {
-//     dispatch(postsFailure(getErrorMessage(err)))
-//   }
-// } 
+export const fetchUsers = (): AppThunk => async (dispatch) => {
+  try {
+    dispatch(getUsersStart())
+    const localUsers = localStorage.getItem('users');
+    if (localUsers) {
+      console.log(localUsers);
+      dispatch(getUsersSuccess({ users: JSON.parse(localUsers) as User[] }));
+    }
+    const users = await userService.getAllUsers()
+    dispatch(getUsersSuccess({ users }))
+    localStorage.setItem('users', JSON.stringify(users));
+  } catch (err) {
+    dispatch(usersFailure(getErrorMessage(err)))
+  }
+} 
 
-// export const fetchPostById = (postId: IdType): AppThunk => async (dispatch) => {
-//   try {
-//     dispatch(getPostByIdStart(postId));
-//     const post = await PostService.getPostById(postId);
-//     dispatch(getPostByIdSuccess(post));
-//   } catch (err) {
-//     dispatch(postsFailure(getErrorMessage(err)))
-//   }
-// }
+export const fetchUserById = (userId: IdType): AppThunk => async (dispatch) => {
+  try {
+    dispatch(getUserByIdStart(userId));
+    const user = await userService.getUserById(userId);
+    dispatch(getUserByIdSuccess(user));
+  } catch (err) {
+    dispatch(usersFailure(getErrorMessage(err)))
+  }
+}
 
 export const createUser = (
   user: User, 
@@ -164,7 +164,7 @@ export const createUser = (
     const authToken = getState().auth.token;
     const created = await userService.createNewUser(user, authToken);
     dispatch(createUserSuccess(created));
-    history.push('/posts');
+    history.push('/login');
   } catch (err) {
     dispatch(usersFailure(getErrorMessage(err)))
   } 
@@ -173,30 +173,30 @@ export const createUser = (
   // }
 }
 
-// export const updatePost = (
-//   post: Post, 
-//   history: History<History.PoorMansUnknown>, 
-//   // setSubmitting: (isSubmitting: boolean) => void
-//   ): AppThunk => async (dispatch) => {
-//   try {
-//     dispatch(updatePostStart(post));
-//     const created = await PostService.updatePost(post);
-//     dispatch(updatePostSuccess(created));
-//     history.push('/posts');
-//   } catch (err) {
-//     dispatch(postsFailure(getErrorMessage(err)))
-//   } 
-//   // finally {
-//   //   setSubmitting(false);
-//   // }
-// }
+export const updateUser = (
+  user: User, 
+  history: History<History.PoorMansUnknown>, 
+  // setSubmitting: (isSubmitting: boolean) => void
+  ): AppThunk => async (dispatch) => {
+  try {
+    dispatch(updateUserStart(user));
+    const created = await userService.updateUser(user);
+    dispatch(updateUserSuccess(created));
+    history.push('/users');
+  } catch (err) {
+    dispatch(usersFailure(getErrorMessage(err)))
+  } 
+  // finally {
+  //   setSubmitting(false);
+  // }
+}
 
-// export const deletePost = (postId: IdType): AppThunk => async (dispatch) => {
-//   try {
-//     dispatch(deletePostByIdStart(postId));
-//     const deleted = await PostService.deletePost(postId);
-//     dispatch(deletePostByIdSuccess(deleted));
-//   } catch (err) {
-//     dispatch(postsFailure(getErrorMessage(err)))
-//   }
-// }
+export const deleteUser = (userId: IdType): AppThunk => async (dispatch) => {
+  try {
+    dispatch(deleteUserByIdStart(userId));
+    const deleted = await userService.deleteUser(userId);
+    dispatch(deleteUserByIdSuccess(deleted));
+  } catch (err) {
+    dispatch(usersFailure(getErrorMessage(err)))
+  }
+}
