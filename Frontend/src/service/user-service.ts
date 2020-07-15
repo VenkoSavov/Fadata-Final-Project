@@ -1,5 +1,3 @@
-import { Post } from '../model/post.model';
-import { IdType } from '../shared/shared-types';
 import { handleErrorStausCodes } from './service-utils';
 import { User } from '../model/user.model';
 

@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { History } from 'history';
-
 import { AppThunk } from '../../app/store';
 import { Post } from '../../model/post.model';
 import PostService from '../../service/post-service';
 import { getErrorMessage } from '../../service/service-utils';
 import { IdType } from '../../shared/shared-types';
-import { useState } from 'react';
+
 
 interface PostsState {
   currentPostId: IdType | null;
@@ -78,7 +77,7 @@ const posts = createSlice({
       state.posts.push(post)
       state.loading = false;
       state.error = null;
-      state.message = `Post "${action.payload.author}" created successfully.`;
+      state.message = `Post created successfully.`;
     },
     updatePostStart(state, action: PayloadAction<Post>) {
       state.currentPostId = action.payload._id;
@@ -95,7 +94,7 @@ const posts = createSlice({
       }
       state.loading = false;
       state.error = null;
-      state.message = `Post "${action.payload.author}" updated successfully.`;
+      state.message = `Post updated successfully.`;
     },
     deletePostByIdStart(state, action: PayloadAction<IdType>) {
       state.currentPostId = action.payload;
@@ -110,7 +109,22 @@ const posts = createSlice({
       }
       state.loading = false;
       state.error = null;
-      state.message = `Post "${action.payload.author}" deleted successfully.`;
+      state.message = `Post deleted successfully.`;
+    },
+    completePostByIdStart(state, action: PayloadAction<IdType>) {
+      state.currentPostId = action.payload;
+      state.loading = true;
+      state.error = null;
+    },
+    completePostByIdSuccess(state, action: PayloadAction<Post>) {
+      const post = action.payload;
+      const index = state.posts.findIndex(p => p._id === post._id);
+      if (index >= 0) {
+        state.posts.splice(index, 1);
+      }
+      state.loading = false;
+      state.error = null;
+      state.message = `Post completed successfully.`;
     },
     acceptPostStart(state, action: PayloadAction<Post>) {
       state.currentPostId = action.payload._id;
@@ -169,7 +183,9 @@ export const {
   filterByValueStart,
   filterByValueSuccess,
   filterChangeStart,
-  filterChangeSuccess
+  filterChangeSuccess,
+  completePostByIdStart,
+  completePostByIdSuccess,
 } = posts.actions
 export default posts.reducer
 
@@ -246,6 +262,15 @@ export const deletePost = (postId: IdType): AppThunk => async (dispatch) => {
     dispatch(deletePostByIdStart(postId));
     const deleted = await PostService.deletePost(postId);
     dispatch(deletePostByIdSuccess(deleted));
+  } catch (err) {
+    dispatch(postsFailure(getErrorMessage(err)))
+  }
+}
+export const completePost = (postId: IdType): AppThunk => async (dispatch) => {
+  try {
+    dispatch(completePostByIdStart(postId));
+    const completed = await PostService.deletePost(postId);
+    dispatch(completePostByIdSuccess(completed));
   } catch (err) {
     dispatch(postsFailure(getErrorMessage(err)))
   }

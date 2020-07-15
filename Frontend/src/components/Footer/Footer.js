@@ -12,53 +12,44 @@ export default function Footer() {
             </p>
           </div>
           <div className="col l3 s12">
-            <h5 className="white-text">Settings</h5>
+            <h5 className="white-text">More information</h5>
             <ul>
               <li>
                 <a className="white-text" href="#!">
-                  Link 1
+                  Tips for Parents
                 </a>
               </li>
               <li>
                 <a className="white-text" href="#!">
-                  Link 2
+                  Tips for Babysitters
                 </a>
               </li>
               <li>
                 <a className="white-text" href="#!">
-                  Link 3
+                  Parents FAQ
                 </a>
               </li>
               <li>
                 <a className="white-text" href="#!">
-                  Link 4
+                  Babysitters FAQ
                 </a>
               </li>
             </ul>
           </div>
           <div className="col l3 s12">
-            <h5 className="white-text">Connect</h5>
+            <h5 className="white-text">Contact us</h5>
             <ul>
               <li>
                 <a className="white-text" href="#!">
-                  Link 1
+                  savov.venko@gmail.com
                 </a>
               </li>
               <li>
                 <a className="white-text" href="#!">
-                  Link 2
+                  +359 898 344 940
                 </a>
               </li>
-              <li>
-                <a className="white-text" href="#!">
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a className="white-text" href="#!">
-                  Link 4
-                </a>
-              </li>
+              
             </ul>
           </div>
         </div>
@@ -68,7 +59,7 @@ export default function Footer() {
           Made by{' '}
           <a
             className="orange-text text-lighten-3"
-            href="https://github.com/VenkoSavov" target="_blank"
+            href="https://github.com/VenkoSavov" target="_blank" rel="noopener noreferrer"
           >
             Venko Savov
           </a>

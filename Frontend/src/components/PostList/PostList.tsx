@@ -3,7 +3,6 @@ import { Post } from '../../model/post.model';
 import { ReactElement } from 'react';
 import { PostItem } from '../PostItem/PostItem';
 import { PostCallback } from '../../shared/shared-types';
-import Header from '../Header/Header';
 import './PostList.css'
 
 interface Props {
@@ -12,6 +11,7 @@ interface Props {
   onEditPost: PostCallback;
   onDeletePost: PostCallback;
   onAcceptPost: PostCallback;
+  onCompletePost: PostCallback;
 }
 
 export function PostList({ posts,filter, ...rest }: Props): ReactElement<Props> {

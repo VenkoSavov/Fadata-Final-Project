@@ -1,9 +1,8 @@
 
-import { PostCallback, IdType } from '../../shared/shared-types';
 import { Post } from '../../model/post.model';
 import * as Yup from 'yup';
-import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
-import React, { FC, useEffect, useState, ReactElement } from 'react';
+// import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
+import React, { FC, useEffect, ReactElement } from 'react';
 import { Formik, Form, FormikProps } from 'formik';
 import MaterialFiled from '../MaterialFields/MaterialField/MaterialField';
 import MaterialFiledDate from '../MaterialFields/MaterialFieldDate/MaterialFieldDate';
@@ -11,14 +10,11 @@ import MaterialFiledTime from '../MaterialFields/MaterialFieldTime/MaterialField
 import MaterialFiledLocation from '../MaterialFields/MaterialFieldLocation/MaterialFieldLocation';
 import './PostForm.css';
 import { useParams, useHistory } from 'react-router-dom';
-import PostService from '../../service/post-service';
 import { RootState } from '../../app/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPostById, updatePost, createPost } from '../../features/posts/postsSlice';
 import { User } from '../../model/user.model';
-import { Datepicker } from 'materialize-css';
-import { DatePicker } from 'react-materialize';
-import { format } from 'path';
+import { IdType } from '../../shared/shared-types';
 
 interface Props {
 }
@@ -157,7 +153,7 @@ export const PostForm: FC<Props> = () => {
                             </button>
                         </div>
                         </div>
-                        <DisplayFormikState />
+                        {/* <DisplayFormikState /> */}
                     </Form>
                 )
                             }

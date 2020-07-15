@@ -11,6 +11,7 @@ interface Props {
   onEditPost: PostCallback;
   onDeletePost: PostCallback;
   onAcceptPost: PostCallback;
+  onCompletePost: PostCallback;
 
 }
 
@@ -18,7 +19,7 @@ const rawMarkup = (markdownText: string) => (
   {__html :Marked.parse(markdownText)}
 );
 
-export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcceptPost}) => {
+export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcceptPost, onCompletePost}) => {
   let user = useSelector((state: RootState) => state.auth.loggedUser);
 
   const handleAccept = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -31,6 +32,9 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
   const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     onDeletePost(post);
   }
+  const handleComplete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onCompletePost(post);
+  } 
  
   return (
     <div className="PostItem-card-wrapper col s12 m6 l6 xl4 Post-card">
@@ -63,7 +67,7 @@ export const PostItem: React.FC<Props> = ({post, onEditPost, onDeletePost, onAcc
           <div className="h-align-items black-text text-lighter-1"><i className="margin-right-small material-icons small">date_range</i> {post.date} <i className="margin-right-small margin-left-small material-icons small">access_time</i> {post.timeFrom} - {post.timeTo}</div>
     
           <div className="PostItem-card-actions card-action">
-            {post.isAccepted && user?._id === post.authorId? <button className="btn waves-effect waves-light green lighten-2 pulse" onClick={handleDelete}>Complete</button>: null}
+            {post.isAccepted && user?._id === post.authorId? <button className="btn waves-effect waves-light green lighten-2 pulse" onClick={handleComplete}>Complete</button>: null}
               {post.isAccepted? <span className="h-align-items "><i className="material-icons margin-right-small">check_circle</i> {post.acceptedBy}</span> : null}
             {user?.roles === '0' || post.isAccepted? null : <button className="btn waves-effect waves-light pink lighten-2 pulse" onClick={handleAccept}>Accept offer!</button>}
             <div className="PostItem-buttons-right">

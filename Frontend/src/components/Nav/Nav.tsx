@@ -3,13 +3,11 @@ import React, { useState, ReactElement } from "react";
 import "./Nav.css";
 import {
   StringCallback,
-  PostCallback,
   UserCallback,
 } from "../../shared/shared-types";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/rootReducer";
-import { User } from "../../model/user.model";
 
 interface Props {
   onSearchPosts: StringCallback;

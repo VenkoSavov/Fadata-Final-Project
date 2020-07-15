@@ -1,7 +1,6 @@
 import { Post } from '../model/post.model';
 import { IdType } from '../shared/shared-types';
 import { handleErrorStausCodes } from './service-utils';
-import { User, IUser } from '../model/user.model';
 
 export const API_BASE = 'http://localhost:9000/api';
 

@@ -4,7 +4,6 @@ import { UserRepository } from '../dao/mongo-repository';
 import * as indicative from 'indicative';
 import * as bcrypt from 'bcryptjs';
 import { User } from '../model/user.model';
-import { userInfo } from 'os';
 
 const router = Router();
 
@@ -41,7 +40,13 @@ router.post('/', async (req, res, next) => {
     try {
         await indicative.validator.validate(newUser, {
             _id: 'regex:^[0-9a-fA-F]{24}$',
-            // more validation needed
+            firstName:'required|string|min:2|max:20',
+            lastName:'required|string|min:2|max:20',
+            username:'required|string|min:2|max:20',
+            email:'required|email',
+            password:'required.min(6).max(30)',
+            roles:'required',
+            
         });
     } catch (err) {
         next(new AppError(400, err.message, err));

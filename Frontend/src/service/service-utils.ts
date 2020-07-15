@@ -1,5 +1,4 @@
 import { AppError } from "../model/errors";
-import { useHistory } from "react-router-dom";
 
 export async function handleErrorStausCodes<T>(resp: Response): Promise<T> {
     if (resp.status < 400) {

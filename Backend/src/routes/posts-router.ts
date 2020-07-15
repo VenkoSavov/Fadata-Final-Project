@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import { AppError } from '../model/errors';
-import { PostRepository, UserRepository } from '../dao/mongo-repository';
+import { PostRepository} from '../dao/mongo-repository';
 import * as indicative from 'indicative';
 import { verifyToken } from './verify-token';
-import { verifyRole } from './verify-role';
-import { Role } from '../model/user.model';
+
 
 const router = Router();
 
@@ -53,10 +52,6 @@ router.post('/', verifyToken,  function (req, res, next) {
     }).then(async () => {
         // create post in db
         try {
-
-            //TODO set correct author
-            // const defaultUser = await (<UserRepository>req.app.locals.userRepo).findByUsername("trayan");
-            // newPost.authorId = defaultUser._id;
 
             // Create new User
             const created = await(<PostRepository>req.app.locals.postRepo).add(newPost);

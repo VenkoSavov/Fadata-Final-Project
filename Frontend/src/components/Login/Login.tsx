@@ -19,16 +19,25 @@ export default function Login(): ReactElement {
       }, history));
     }
     return (
-        <form noValidate onSubmit={login}>
+      <div className="col s12">
+        <div className="formContainer section">
+        <form noValidate onSubmit={login} className="row">
             <label htmlFor="username">Username:</label>
             <input type="text" id="username" placeholder="Username" name="username" required autoFocus ref={usernameRef}/>
-
             <label htmlFor="password">Password:</label>
             <input type="password" id="password" placeholder="Password" name="password" required  ref={passwordRef}/>
+          <div className="center PostForm-butons">
+            
 
-            <button type="submit">Login</button>
+            <button type="submit" className="btn waves-effect waves-light"><i className="material-icons right">send</i>Login</button>
             <button type="button" onClick={goBack} className="btn red waves-effect waves-light" >Cancel <i className="material-icons right">settings_backup_restore</i></button>
+            </div>
         </form>
+        <br/><br/>
+        <p className="center">Don't have an account? <a href="/register">Click here</a> to Register!</p>
+        
+        </div>
+        </div>
     )
     function goBack(event: React.MouseEvent<HTMLButtonElement, MouseEvent>){
       event.preventDefault();

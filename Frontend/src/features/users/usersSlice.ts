@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { History } from 'history';
 
 import { AppThunk } from '../../app/store';
-import { Post } from '../../model/post.model';
-import PostService from '../../service/post-service';
 import { getErrorMessage } from '../../service/service-utils';
 import { IdType } from '../../shared/shared-types';
 import { User } from '../../model/user.model';

@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { AppError } from '../model/errors';
-import { PostRepository, UserRepository } from '../dao/mongo-repository';
+import {  UserRepository } from '../dao/mongo-repository';
 import * as indicative from 'indicative';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { secret } from '../config/secret';
-import { Role, User } from '../model/user.model';
+
 import Credentials from '../model/auth';
-import LoggedUser from '../model/auth'
+
 
 const router = Router();
 
@@ -66,14 +66,12 @@ router.post('/register', async (req, res, next) => {
     try {
         await indicative.validator.validate(newUser, {
             _id: 'regex:^[0-9a-fA-F]{24}$',
-            // title: 'required|string|min:3|max:30',
-            // text: 'required|string|min:3|max:1024',
-            // // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
-            // imageUrl: 'url',
-            // categories: 'array',
-            // 'categories.*': 'string',
-            // keywords: 'array',
-            // 'keywords.*': 'string',
+            firstName:'required|string|min:2|max:20',
+            lastName:'required|string|min:2|max:20',
+            username:'required|string|min:2|max:20',
+            email:'required|email',
+            password:'required.min(6).max(30)',
+            roles:'required',
         });
     } catch (err) {
         next(new AppError(400, err.message, err));
@@ -91,7 +89,6 @@ router.post('/register', async (req, res, next) => {
 
         // hash password
         newUser.password = await bcrypt.hash(newUser.password, 8);
-        // newUser.roles = [Role.PARENT, Role.BABYSITTER];
 
         // Create new User
         const created = await (<UserRepository>req.app.locals.userRepo).add(newUser);

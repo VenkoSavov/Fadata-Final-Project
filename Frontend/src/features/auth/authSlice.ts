@@ -3,7 +3,7 @@ import { History } from 'history';
 
 import { AppThunk } from '../../app/store';
 import { Credentials, LoggedUser } from '../../model/auth';
-import { IUser, User } from '../../model/user.model';
+import {  User } from '../../model/user.model';
 import AuthService from '../../service/auth-service';
 import { getErrorMessage } from '../../service/service-utils';
 

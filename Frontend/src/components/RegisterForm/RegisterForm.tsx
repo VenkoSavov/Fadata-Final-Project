@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 // import { DisplayFormikState } from "../DisplayFormikState/DispalyFormikState";
-import React, { FC, useEffect, useState, ReactElement } from 'react';
+import React, { FC, useEffect, ReactElement } from 'react';
 import { Formik, Form, FormikProps } from "formik";
 import MaterialFiled from "../MaterialFields/MaterialField/MaterialField";
 import MaterialFiledRole from "../MaterialFields/MaterialFieldRole/MaterialFieldRole";
@@ -148,8 +148,11 @@ const PostFormInternal: (props: FormikProps<MyFormValues>) => ReactElement = ({
             <i className="material-icons right">settings_backup_restore</i>
           </button>
         </div>
+        <p className="center">Already have an account? <a href="/login">Click here</a> to Login!</p>
         {/* <DisplayFormikState /> */}
       </div>
+      
     </Form>
+    
   );
 };
