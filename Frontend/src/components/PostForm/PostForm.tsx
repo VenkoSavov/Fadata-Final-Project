@@ -17,7 +17,7 @@ import { User } from '../../model/user.model';
 import { IdType } from '../../shared/shared-types';
 
 interface Props {
-} 
+}
 
 export interface MyFormValues {
     _id: string;
@@ -108,13 +108,13 @@ export const PostForm: FC<Props> = () => {
             validationSchema={Yup.object().shape({
                 // author: Yup.string().required().min(2).max(40),
                 text: Yup.string().max(512),
-                imageUrl: Yup.string().url(),
-                timeFrom: Yup.string().required().matches(/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/, 'Hours and minutes: 24 hour clock'),
-                timeTo: Yup.string().required().matches(/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/, 'Hours and minutes: 24 hour clock'),
-                kidsAge: Yup.number().required(),
-                kidsNames: Yup.string().required().trim().matches(/^([\w-_+]+)([,\s]+([\w-_+]+))*$/, 'KidsNames must be a comma/space separated list of words. Words should contain only letters, digits, "_", "+" and "-" characters.'),
-                date: Yup.string().required(),
-                location: Yup.string().required(),
+                imageUrl: Yup.string().url("Please provide a valid URL!"),
+                timeFrom: Yup.string().required("Start time is required!").matches(/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/, 'Hours and minutes: 24 hour clock'),
+                timeTo: Yup.string().required("End time is required!").matches(/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/, 'Hours and minutes: 24 hour clock'),
+                kidsAge: Yup.number().required("Kid's age is required!"),
+                kidsNames: Yup.string().required("Kid's name is required!").trim().matches(/^([\w-_+]+)([,\s]+([\w-_+]+))*$/, 'KidsNames must be a comma/space separated list of words. Words should contain only letters, digits, "_", "+" and "-" characters.'),
+                date: Yup.string().required("Date is required!"),
+                location: Yup.string().required("Location is required!"),
             })}
         >
             {(props) => <PostFormInternal {...props} />}

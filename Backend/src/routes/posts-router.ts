@@ -32,7 +32,7 @@ router.get('/:id', async (req, res, next) => {
     }
 
 });
-
+ 
 router.post('/', verifyToken,  function (req, res, next) {
     // validate new post
     const newPost = req.body;

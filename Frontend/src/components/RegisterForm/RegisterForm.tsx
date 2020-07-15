@@ -86,18 +86,18 @@ export const RegisterForm: FC<Props> = () => {
       }}
       validateOnChange
       validationSchema={Yup.object().shape({
-        firstName: Yup.string().required().min(2).max(20),
-        lastName: Yup.string().required().min(2).max(20),
-        username: Yup.string().required().min(2).max(20),
-        email: Yup.string().email().required(),
-        password: Yup.string().required().min(6).max(30),
+        firstName: Yup.string().required("First Name is required!").min(2, "First Name must be atleast 2 characters!").max(20),
+        lastName: Yup.string().required("Last Name is required!").min(2,"Last Name must be atleast 2 characters!").max(20),
+        username: Yup.string().required("Username is required!").min(2, "Username must be atleast 2 characters!").max(20),
+        email: Yup.string().email("Please provide a valid email!").required("Email is required!"),
+        password: Yup.string().required("Password is required!").min(6).max(30),
         passwordConfirm: Yup.string()
           .oneOf([Yup.ref("password"), undefined], "Password must match!")
-          .required("Password confirm is required")
+          .required("Password confirm is required!")
           .min(6)
           .max(30),
-        imageUrl: Yup.string().url(),
-        roles: Yup.string().required(),
+        imageUrl: Yup.string().url("Please provide a valid URL!"),
+        roles: Yup.string().required("Choosing a Role is required!"),
       })}
     >
       {(props) => <PostFormInternal {...props} />}
