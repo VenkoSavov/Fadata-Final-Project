@@ -32,10 +32,10 @@ export const UserItem: React.FC<Props> = ({user, onEditUser, onDeleteUser}) => {
         <td>{user.username}</td>
         <td>{user.email}</td>                             
         <td>{user.roles}</td>
-        <td>{loggedUser?.roles === '2'? null : <button className="btn waves-effect waves-light red" title="DELETE User" onClick={handleDelete}>
+        <td>{loggedUser?.roles !== '2'? null : <button className="btn waves-effect waves-light red" title="DELETE User" onClick={handleDelete}>
                 <i className="material-icons">delete</i>
   </button>}</td>                             
-        <td>{loggedUser?.roles === '2'? null :<button className="btn waves-effect waves-light" title="EDIT User" onClick={handleEdit}>
+        <td>{loggedUser?.roles !== '2'? null :<button className="btn waves-effect waves-light" title="EDIT User" onClick={handleEdit}>
                 <i className="material-icons">create</i>
   </button>}</td>
       </tr>
